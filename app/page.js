@@ -1,9 +1,19 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './page.module.css'
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [activeCard, setActiveCard] = useState(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const events = [
     {
@@ -60,30 +70,68 @@ export default function Home() {
   return (
     <div className={styles.container}>
       {/* Navigation */}
-      <nav className={styles.nav}>
+      <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ''}`}>
         <div className={styles.navContent}>
-          <div className={styles.logo}>IEDC BOOTCAMP CEC</div>
+          <div className={styles.logo}>
+            <span className={styles.logoIcon}>⚡</span>
+            IEDC BOOTCAMP CEC
+          </div>
           <button 
             className={styles.menuToggle}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            ☰
+            {menuOpen ? '✕' : '☰'}
           </button>
           <ul className={`${styles.navLinks} ${menuOpen ? styles.navOpen : ''}`}>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#blog">Updates</a></li>
+            <li><a href="#home" onClick={() => setMenuOpen(false)}>Home</a></li>
+            <li><a href="#events" onClick={() => setMenuOpen(false)}>Events</a></li>
+            <li><a href="#team" onClick={() => setMenuOpen(false)}>Team</a></li>
+            <li><a href="#blog" onClick={() => setMenuOpen(false)}>Updates</a></li>
+            <li><a href="#contact" className={styles.ctaNav} onClick={() => setMenuOpen(false)}>Join Now</a></li>
           </ul>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section id="home" className={styles.hero}>
+        <div className={styles.heroBackground}>
+          <div className={styles.heroCircle1}></div>
+          <div className={styles.heroCircle2}></div>
+          <div className={styles.heroCircle3}></div>
+        </div>
         <div className={styles.heroContent}>
-          <h1>Welcome to IEDC BOOTCAMP CEC</h1>
-          <p>Empowering Innovation & Entrepreneurship at College of Engineering Chengannur</p>
-          <button className={styles.ctaButton}>Join Us Today</button>
+          <div className={styles.heroTag}>🚀 Innovation Starts Here</div>
+          <h1 className={styles.heroTitle}>
+            Welcome to <span className={styles.highlight}>IEDC BOOTCAMP</span>
+          </h1>
+          <h2 className={styles.heroSubtitle}>College of Engineering Chengannur</h2>
+          <p className={styles.heroDescription}>
+            Empowering the next generation of innovators and entrepreneurs. 
+            Transform your ideas into reality with mentorship, resources, and a vibrant community.
+          </p>
+          <div className={styles.heroButtons}>
+            <button className={styles.ctaButton}>
+              Get Started
+              <span className={styles.buttonArrow}>→</span>
+            </button>
+            <button className={styles.secondaryButton}>
+              Learn More
+            </button>
+          </div>
+          <div className={styles.heroStats}>
+            <div className={styles.statItem}>
+              <div className={styles.statNumber}>500+</div>
+              <div className={styles.statLabel}>Students</div>
+            </div>
+            <div className={styles.statItem}>
+              <div className={styles.statNumber}>50+</div>
+              <div className={styles.statLabel}>Events</div>
+            </div>
+            <div className={styles.statItem}>
+              <div className={styles.statNumber}>20+</div>
+              <div className={styles.statLabel}>Startups</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -105,12 +153,22 @@ export default function Home() {
           <h2>Upcoming Events & Workshops</h2>
           <div className={styles.eventsGrid}>
             {events.map(event => (
-              <div key={event.id} className={styles.eventCard}>
-                <div className={styles.eventIcon}>{event.image}</div>
+              <div 
+                key={event.id} 
+                className={`${styles.eventCard} ${activeCard === event.id ? styles.eventCardActive : ''}`}
+                onMouseEnter={() => setActiveCard(event.id)}
+                onMouseLeave={() => setActiveCard(null)}
+              >
+                <div className={styles.eventIconWrapper}>
+                  <div className={styles.eventIcon}>{event.image}</div>
+                </div>
                 <h3>{event.title}</h3>
-                <p className={styles.eventDate}>{event.date}</p>
+                <p className={styles.eventDate}>📅 {event.date}</p>
                 <p>{event.description}</p>
-                <button className={styles.registerButton}>Register Now</button>
+                <button className={styles.registerButton}>
+                  Register Now
+                  <span className={styles.buttonArrow}>→</span>
+                </button>
               </div>
             ))}
           </div>
@@ -124,9 +182,14 @@ export default function Home() {
           <div className={styles.teamGrid}>
             {team.map((member, index) => (
               <div key={index} className={styles.teamCard}>
-                <div className={styles.teamIcon}>{member.image}</div>
+                <div className={styles.teamIconWrapper}>
+                  <div className={styles.teamIcon}>{member.image}</div>
+                  <div className={styles.teamOverlay}>
+                    <button className={styles.teamConnect}>Connect</button>
+                  </div>
+                </div>
                 <h3>{member.name}</h3>
-                <p>{member.role}</p>
+                <p className={styles.teamRole}>{member.role}</p>
               </div>
             ))}
           </div>
@@ -140,13 +203,29 @@ export default function Home() {
           <div className={styles.blogGrid}>
             {blogs.map(blog => (
               <div key={blog.id} className={styles.blogCard}>
+                <div className={styles.blogBadge}>NEW</div>
                 <h3>{blog.title}</h3>
-                <p className={styles.blogDate}>{blog.date}</p>
+                <p className={styles.blogDate}>📰 {blog.date}</p>
                 <p>{blog.excerpt}</p>
-                <a href="#" className={styles.readMore}>Read More →</a>
+                <a href="#" className={styles.readMore}>
+                  Read More
+                  <span className={styles.readMoreArrow}>→</span>
+                </a>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className={styles.contact}>
+        <div className={styles.sectionContent}>
+          <h2>Ready to Start Your Journey?</h2>
+          <p className={styles.contactSubtitle}>Join IEDC BOOTCAMP CEC and turn your ideas into reality</p>
+          <button className={styles.ctaButtonLarge}>
+            Join Our Community
+            <span className={styles.buttonArrow}>→</span>
+          </button>
         </div>
       </section>
 
@@ -154,13 +233,23 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.footerSection}>
-            <h3>IEDC BOOTCAMP CEC</h3>
+            <h3>
+              <span className={styles.logoIcon}>⚡</span>
+              IEDC BOOTCAMP CEC
+            </h3>
             <p>College of Engineering Chengannur</p>
             <p>Kerala, India</p>
+            <div className={styles.socialIcons}>
+              <a href="#" className={styles.socialIcon}>📘</a>
+              <a href="#" className={styles.socialIcon}>🐦</a>
+              <a href="#" className={styles.socialIcon}>📷</a>
+              <a href="#" className={styles.socialIcon}>💼</a>
+            </div>
           </div>
           <div className={styles.footerSection}>
             <h3>Quick Links</h3>
             <ul>
+              <li><a href="#home">Home</a></li>
               <li><a href="#events">Events</a></li>
               <li><a href="#team">Team</a></li>
               <li><a href="#blog">Blog</a></li>
@@ -168,8 +257,9 @@ export default function Home() {
           </div>
           <div className={styles.footerSection}>
             <h3>Connect</h3>
-            <p>Email: iedc@cec.ac.in</p>
-            <p>Phone: +91 1234567890</p>
+            <p>📧 iedc@cec.ac.in</p>
+            <p>📞 +91 1234567890</p>
+            <p>📍 Chengannur, Kerala</p>
           </div>
         </div>
         <div className={styles.footerBottom}>
