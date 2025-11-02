@@ -180,9 +180,6 @@ export default function Home() {
               <div key={index} className={styles.teamCard}>
                 <div className={styles.teamIconWrapper}>
                   <div className={styles.teamIcon}>{member.image}</div>
-                  <div className={styles.teamOverlay}>
-                    <button className={styles.teamConnect}>Connect</button>
-                  </div>
                 </div>
                 <h3>{member.name}</h3>
                 <p className={styles.teamRole}>{member.role}</p>
