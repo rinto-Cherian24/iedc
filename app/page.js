@@ -142,7 +142,7 @@ export default function Home() {
           </div>
           <div className={styles.heroStats}>
             <div className={styles.statItem}>
-              <div className={styles.statNumber}>500+</div>
+              <div className={styles.statNumber}>400+</div>
               <div className={styles.statLabel}>Active Students</div>
             </div>
             <div className={styles.statDivider}></div>
@@ -263,8 +263,8 @@ export default function Home() {
           </div>
           <div className={styles.footerSection}>
             <h3>Connect</h3>
-            <p>Email: iedc@cec.ac.in</p>
-            <p>Phone: +91 1234567890</p>
+            <p>Email: iedc_bootcamp@ceconline.edu</p>
+            <p>CEO: ceo_iedc@ceconline.edu</p>
             <p>Location: Chengannur, Kerala</p>
           </div>
         </div>
