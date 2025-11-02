@@ -40,10 +40,14 @@ export default function Home() {
   ]
 
   const team = [
-    { name: 'Rajesh Kumar', role: 'Chief Coordinator', image: '👨‍💼' },
-    { name: 'Priya Menon', role: 'Technical Lead', image: '👩‍💻' },
-    { name: 'Arun Krishnan', role: 'Events Manager', image: '👨‍🎓' },
-    { name: 'Sneha Nair', role: 'Marketing Head', image: '👩‍🎨' }
+    { name: 'Vimal Vinod V', role: 'Program Manager', image: '📋' },
+    { name: 'Mahadevan Reji', role: 'Web Manager', image: '💻' },
+    { name: 'Govind JS', role: 'Design Lead', image: '🎨' },
+    { name: 'Christo Pius', role: 'Social Media and Marketing Manager', image: '📱' },
+    { name: 'Sanjeev S Nair', role: 'Video Editor', image: '🎬' },
+    { name: 'Amala Ann Jerry', role: 'Women Innovation Lead', image: '💡' },
+    { name: 'Ananya P Santh', role: 'Operations Lead', image: '⚙️' },
+    { name: 'Arathi Viju', role: 'Tech Lead', image: '🔧' }
   ]
 
   const blogs = [
