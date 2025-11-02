@@ -1,11 +1,12 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './page.module.css'
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeCard, setActiveCard] = useState(null)
+  const [visibleSections, setVisibleSections] = useState(new Set())
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +14,30 @@ export default function Home() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    }
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisibleSections(prev => new Set([...prev, entry.target.id]))
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    const sections = document.querySelectorAll('section[id]')
+    sections.forEach(section => observer.observe(section))
+
+    return () => {
+      sections.forEach(section => observer.unobserve(section))
+    }
   }, [])
 
   const events = [
@@ -135,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className={styles.about}>
+      <section id="about" className={`${styles.about} ${visibleSections.has('about') ? styles.visible : ''}`}>
         <div className={styles.sectionContent}>
           <h2>About IEDC BOOTCAMP</h2>
           <p>
@@ -147,7 +172,7 @@ export default function Home() {
       </section>
 
       {/* Events Section */}
-      <section id="events" className={styles.events}>
+      <section id="events" className={`${styles.events} ${visibleSections.has('events') ? styles.visible : ''}`}>
         <div className={styles.sectionContent}>
           <h2>Upcoming Events & Workshops</h2>
           <div className={styles.eventsGrid}>
@@ -172,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* Team Section */}
-      <section id="team" className={styles.team}>
+      <section id="team" className={`${styles.team} ${visibleSections.has('team') ? styles.visible : ''}`}>
         <div className={styles.sectionContent}>
           <h2>Our Team</h2>
           <div className={styles.teamGrid}>
@@ -190,7 +215,7 @@ export default function Home() {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className={styles.blog}>
+      <section id="blog" className={`${styles.blog} ${visibleSections.has('blog') ? styles.visible : ''}`}>
         <div className={styles.sectionContent}>
           <h2>Latest Updates</h2>
           <div className={styles.blogGrid}>
@@ -209,7 +234,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={styles.contact}>
+      <section id="contact" className={`${styles.contact} ${visibleSections.has('contact') ? styles.visible : ''}`}>
         <div className={styles.sectionContent}>
           <h2>Ready to Start Your Journey?</h2>
           <p className={styles.contactSubtitle}>Join IEDC BOOTCAMP CEC and turn your ideas into reality</p>
