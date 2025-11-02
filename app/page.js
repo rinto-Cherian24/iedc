@@ -73,7 +73,6 @@ export default function Home() {
       <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ''}`}>
         <div className={styles.navContent}>
           <div className={styles.logo}>
-            <span className={styles.logoIcon}>⚡</span>
             IEDC BOOTCAMP CEC
           </div>
           <button 
@@ -94,25 +93,19 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className={styles.hero}>
-        <div className={styles.heroBackground}>
-          <div className={styles.heroCircle1}></div>
-          <div className={styles.heroCircle2}></div>
-          <div className={styles.heroCircle3}></div>
-        </div>
         <div className={styles.heroContent}>
-          <div className={styles.heroTag}>🚀 Innovation Starts Here</div>
+          <div className={styles.heroTag}>Innovation & Entrepreneurship</div>
           <h1 className={styles.heroTitle}>
-            Welcome to <span className={styles.highlight}>IEDC BOOTCAMP</span>
+            IEDC BOOTCAMP CEC
           </h1>
           <h2 className={styles.heroSubtitle}>College of Engineering Chengannur</h2>
           <p className={styles.heroDescription}>
-            Empowering the next generation of innovators and entrepreneurs. 
-            Transform your ideas into reality with mentorship, resources, and a vibrant community.
+            Empowering the next generation of innovators and entrepreneurs through 
+            comprehensive programs, expert mentorship, and cutting-edge resources.
           </p>
           <div className={styles.heroButtons}>
             <button className={styles.ctaButton}>
-              Get Started
-              <span className={styles.buttonArrow}>→</span>
+              Get Started →
             </button>
             <button className={styles.secondaryButton}>
               Learn More
@@ -121,15 +114,17 @@ export default function Home() {
           <div className={styles.heroStats}>
             <div className={styles.statItem}>
               <div className={styles.statNumber}>500+</div>
-              <div className={styles.statLabel}>Students</div>
+              <div className={styles.statLabel}>Active Students</div>
             </div>
+            <div className={styles.statDivider}></div>
             <div className={styles.statItem}>
               <div className={styles.statNumber}>50+</div>
-              <div className={styles.statLabel}>Events</div>
+              <div className={styles.statLabel}>Annual Events</div>
             </div>
+            <div className={styles.statDivider}></div>
             <div className={styles.statItem}>
               <div className={styles.statNumber}>20+</div>
-              <div className={styles.statLabel}>Startups</div>
+              <div className={styles.statLabel}>Startups Launched</div>
             </div>
           </div>
         </div>
@@ -159,15 +154,12 @@ export default function Home() {
                 onMouseEnter={() => setActiveCard(event.id)}
                 onMouseLeave={() => setActiveCard(null)}
               >
-                <div className={styles.eventIconWrapper}>
-                  <div className={styles.eventIcon}>{event.image}</div>
-                </div>
+                <div className={styles.eventIcon}>{event.image}</div>
                 <h3>{event.title}</h3>
-                <p className={styles.eventDate}>📅 {event.date}</p>
+                <p className={styles.eventDate}>{event.date}</p>
                 <p>{event.description}</p>
                 <button className={styles.registerButton}>
-                  Register Now
-                  <span className={styles.buttonArrow}>→</span>
+                  Register Now →
                 </button>
               </div>
             ))}
@@ -203,13 +195,11 @@ export default function Home() {
           <div className={styles.blogGrid}>
             {blogs.map(blog => (
               <div key={blog.id} className={styles.blogCard}>
-                <div className={styles.blogBadge}>NEW</div>
+                <div className={styles.blogDate}>{blog.date}</div>
                 <h3>{blog.title}</h3>
-                <p className={styles.blogDate}>📰 {blog.date}</p>
                 <p>{blog.excerpt}</p>
                 <a href="#" className={styles.readMore}>
-                  Read More
-                  <span className={styles.readMoreArrow}>→</span>
+                  Read More →
                 </a>
               </div>
             ))}
@@ -223,8 +213,7 @@ export default function Home() {
           <h2>Ready to Start Your Journey?</h2>
           <p className={styles.contactSubtitle}>Join IEDC BOOTCAMP CEC and turn your ideas into reality</p>
           <button className={styles.ctaButtonLarge}>
-            Join Our Community
-            <span className={styles.buttonArrow}>→</span>
+            Join Our Community →
           </button>
         </div>
       </section>
@@ -233,18 +222,9 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.footerSection}>
-            <h3>
-              <span className={styles.logoIcon}>⚡</span>
-              IEDC BOOTCAMP CEC
-            </h3>
+            <h3>IEDC BOOTCAMP CEC</h3>
             <p>College of Engineering Chengannur</p>
             <p>Kerala, India</p>
-            <div className={styles.socialIcons}>
-              <a href="#" className={styles.socialIcon}>📘</a>
-              <a href="#" className={styles.socialIcon}>🐦</a>
-              <a href="#" className={styles.socialIcon}>📷</a>
-              <a href="#" className={styles.socialIcon}>💼</a>
-            </div>
           </div>
           <div className={styles.footerSection}>
             <h3>Quick Links</h3>
@@ -257,9 +237,9 @@ export default function Home() {
           </div>
           <div className={styles.footerSection}>
             <h3>Connect</h3>
-            <p>📧 iedc@cec.ac.in</p>
-            <p>📞 +91 1234567890</p>
-            <p>📍 Chengannur, Kerala</p>
+            <p>Email: iedc@cec.ac.in</p>
+            <p>Phone: +91 1234567890</p>
+            <p>Location: Chengannur, Kerala</p>
           </div>
         </div>
         <div className={styles.footerBottom}>
